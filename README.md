@@ -23,4 +23,6 @@
 + *Misschien nog meer!! Teamgenoten voeg toe je ideeën of verwijder wat je haat (aub niet zonder teamoverleg tho!), dit is wat mij interressant lijkt! ^w^ -Roxy*
 
 <br><br>
-[![An anime catgirl dancing](/images/catGirlWiggle.gif "Meow meow meow meow meow meow meow meow meow meow meow meow meow")](https://tenor.com/view/cat-catgirl-redhead-gif-15394697)
+> <a href="https://tenor.com/view/cat-catgirl-redhead-gif-15394697" target="_blank" >
+>     <img src="/images/catGirlWiggle.gif" style="width: 25%;" alt="An anime catgirl dancing" >
+> </a>
