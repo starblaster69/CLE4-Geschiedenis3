@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 import townImage from "./images/zeldaTown.png"
-import playerImage from "./images/spritePlaceholder.png"
-import npcImage from "./images/npcPlaceholder.png"
+import playerImage from "./images/grug.png"
+import npcImage from "./images/holbewoner.png"
 import { Map } from "./Map"
 import { Player} from "./Player"
 import { Npc } from "./Npc"
