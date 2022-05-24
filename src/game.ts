@@ -46,7 +46,7 @@ class Game{
 }
 
 let g = new Game()
-
+//HELPPP
 
 function update(delta : number){
     playerGlobal.update()
