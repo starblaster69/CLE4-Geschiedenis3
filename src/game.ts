@@ -1,17 +1,17 @@
 import * as PIXI from 'pixi.js'
-import townImage from "./images/zeldaTown.png"
+import townImage from "./images/zeldaWorld.png"
 import playerImage from "./images/grug.png"
 import npcImage from "./images/holbewoner.png"
 import { Map } from "./Map"
 import { Player} from "./Player"
 import { Npc } from "./Npc"
 import { UPDATE_PRIORITY } from 'pixi.js'
-let playerGlobal: Player
 
 class Game{
     pixi : PIXI.Application //canvas element in de html file
     loader : PIXI.Loader
-    player : PIXI.Sprite
+    player : Player
+    npc: Npc
 
     constructor(){
         console.log("ik ben een game")
@@ -32,22 +32,34 @@ class Game{
         this.pixi.stage.addChild(townMap)
 
         //creates player character
-        let player = new Player(this.loader.resources["playerSprite"].texture!)
-        this.pixi.stage.addChild(player)
-        playerGlobal = player
+        this.player = new Player(this.loader.resources["playerSprite"].texture!)
+        this.pixi.stage.addChild(this.player)
 
         //creates npc
-        let npc = new Npc(this.loader.resources["npcSprite"].texture!)
-        this.pixi.stage.addChild(npc)
+        this.npc = new Npc(this.loader.resources["npcSprite"].texture!)
+        this.pixi.stage.addChild(this.npc)
 
         //updater
-        this.pixi.ticker.add((delta) => update(delta))
+        this.pixi.ticker.add((delta) => this.update(delta))
+    }
+
+    public update(delta : number){
+        this.player.update()
+    
+        if(this.collision(this.player, this.npc)){
+            console.log("player touches enemy 💀")
+        }
+    }
+
+    collision(sprite1:PIXI.Sprite, sprite2:PIXI.Sprite) {
+        const bounds1 = sprite1.getBounds()
+        const bounds2 = sprite2.getBounds()
+
+        return bounds1.x < bounds2.x + bounds2.width
+            && bounds1.x + bounds1.width > bounds2.x
+            && bounds1.y < bounds2.y + bounds2.height
+            && bounds1.y + bounds1.height > bounds2.y;
     }
 }
 
 let g = new Game()
-//HELPPP
-
-function update(delta : number){
-    playerGlobal.update()
-}
