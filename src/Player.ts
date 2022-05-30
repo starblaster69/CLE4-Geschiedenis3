@@ -37,6 +37,10 @@ export class Player extends PIXI.Sprite {
     //operations
     public update() {
         // todo only aan de rand van het scherm
+       
+
+        console.log(this.x + this.y)
+    
 
         if (this.townMap.x <= 0 && this.townMap.y <= 0) {
             this.townMap.x -= this.xspeed
@@ -46,7 +50,7 @@ export class Player extends PIXI.Sprite {
             this.y += this.yspeed
         }
 
-        // if (this.player.x <= 0 && this.player.y <= 0) {
+        // if (this.x <= 0 && this.y <= 0) {
         //     this.x += this.xspeed
         //     this.y += this.yspeed
         // } else {
