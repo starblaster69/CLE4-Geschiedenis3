@@ -2,12 +2,12 @@ import * as PIXI from 'pixi.js'
 
 export class Npc extends PIXI.Sprite {
     //variables
-    direction: number //clockwise, starting at north, 0-3
-    name: string
+    private direction: number //clockwise, starting at north, 0-3
+    public name: string
 
-    questName: string
-    questStatus: number //0 = not started, 1 = started no progress, 9 = completed, 2-8 is progress flags(optional)
-    questReward: string
+    private questName: string
+    private questStatus: number //0 = not started, 1 = started no progress, 9 = completed, 2-8 is progress flags(optional)
+    private questReward: string
 
     constructor(texture: PIXI.Texture){
         super(texture)
@@ -25,7 +25,7 @@ export class Npc extends PIXI.Sprite {
         this.scale.set(0.1)
         this.anchor.set(0.5)
     }
-    dialogue(){
+    private dialogue(){
         /* switch
             case for each quest flag
                 line of dialogue to display
@@ -33,7 +33,7 @@ export class Npc extends PIXI.Sprite {
                 default dialogue  */
         
     }
-    questUpdate(){
+    private questUpdate(){
         /* switch
             case for each quest flag, check if the goal is achieved
                 increase quest flag counter

@@ -2,14 +2,15 @@ import * as PIXI from 'pixi.js'
 
 export class Player extends PIXI.Sprite {
     //variables
-    xspeed: number
-    yspeed: number
-    direction: number //clockwise, starting at north, 0-3
-    health: number
+    private xspeed: number
+    private yspeed: number
+    private direction: number //clockwise, starting at north, 0-3
+    private health: number
+    private woodclubTexture : PIXI.Texture 
     //inventory: [string]
 
 
-    constructor(texture: PIXI.Texture){
+    constructor(texture: PIXI.Texture, woodclubTexture: PIXI.Texture){
         super(texture)
         console.log("hyaa! i am link!")
         this.xspeed = 0
@@ -25,16 +26,18 @@ export class Player extends PIXI.Sprite {
         this.scale.set(0.2)
         this.anchor.set(0.5)
 
+        this.woodclubTexture = woodclubTexture
+
         window.addEventListener("keydown", (e: KeyboardEvent) => this.move(e))
         window.addEventListener("keyup", (e: KeyboardEvent) => this.unMove(e))
     }
 
     //operations
-    update() {
+    public update() {
         this.x += this.xspeed
         this.y += this.yspeed
     }
-    move(e: KeyboardEvent): void {
+    private move(e: KeyboardEvent): void {
         switch (e.key.toUpperCase()){
             case "A":
             case "ARROWLEFT":
@@ -56,10 +59,19 @@ export class Player extends PIXI.Sprite {
                 this.direction = 2
                 this.yspeed = 3
                 break
+            case "K":
+                this.attack()    
         }
     }
 
-    unMove(e: KeyboardEvent): void {
+    private attack(){
+
+        console.log("ATTACKKKKK")
+        this.texture = this.woodclubTexture
+
+    }
+
+    private unMove(e: KeyboardEvent): void {
         switch (e.key.toUpperCase()) {
             case "A":
             case "D":

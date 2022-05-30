@@ -2,16 +2,17 @@ import * as PIXI from 'pixi.js'
 import townImage from "./images/zeldaWorld.png"
 import playerImage from "./images/grug.png"
 import npcImage from "./images/holbewoner.png"
+import knuppelImage from "./images/wooden_club.png"
 import { Map } from "./Map"
 import { Player} from "./Player"
 import { Npc } from "./Npc"
 import { UPDATE_PRIORITY } from 'pixi.js'
 
 class Game{
-    pixi : PIXI.Application //canvas element in de html file
-    loader : PIXI.Loader
-    player : Player
-    npc: Npc
+    private pixi : PIXI.Application //canvas element in de html file
+    private loader : PIXI.Loader
+    private player : Player
+    private npc: Npc
 
     constructor(){
         console.log("ik ben een game")
@@ -23,16 +24,18 @@ class Game{
         this.loader.add('townTexture', townImage)
         this.loader.add('playerSprite', playerImage)
         this.loader.add('npcSprite', npcImage)
+        this.loader.add('woodclubTexture', knuppelImage)
+        this.loader.add("attack", "attack.json")
         this.loader.load(()=>this.loadCompleted())
     }
 
-    loadCompleted() {
+    private loadCompleted() {
         //creates background image
         let townMap = new Map(this.loader.resources["townTexture"].texture!)
         this.pixi.stage.addChild(townMap)
 
         //creates player character
-        this.player = new Player(this.loader.resources["playerSprite"].texture!)
+        this.player = new Player(this.loader.resources["playerSprite"].texture!, this.loader.resources['woodclubTexture'].texture!)
         this.pixi.stage.addChild(this.player)
 
         //creates npc
@@ -51,7 +54,7 @@ class Game{
         }
     }
 
-    collision(sprite1:PIXI.Sprite, sprite2:PIXI.Sprite) {
+    private collision(sprite1:PIXI.Sprite, sprite2:PIXI.Sprite) {
         const bounds1 = sprite1.getBounds()
         const bounds2 = sprite2.getBounds()
 
