@@ -3,7 +3,7 @@ import townImage from "./images/zeldaWorld.png"
 import playerImage from "./images/grug.png"
 import npcImage from "./images/holbewoner.png"
 import knuppelImage from "./images/wooden_club.png"
-import { Map } from "./Map"
+import { TownMap } from "./TownMap"
 import { Player} from "./Player"
 import { Npc } from "./Npc"
 import { UPDATE_PRIORITY } from 'pixi.js'
@@ -13,6 +13,7 @@ class Game{
     private loader : PIXI.Loader
     private player : Player
     private npc: Npc
+    public townMap : TownMap
 
     constructor(){
         console.log("ik ben een game")
@@ -31,11 +32,11 @@ class Game{
 
     private loadCompleted() {
         //creates background image
-        let townMap = new Map(this.loader.resources["townTexture"].texture!)
-        this.pixi.stage.addChild(townMap)
+        this.townMap = new TownMap(this.loader.resources["townTexture"].texture!)
+        this.pixi.stage.addChild(this.townMap)
 
         //creates player character
-        this.player = new Player(this.loader.resources["playerSprite"].texture!, this.loader.resources['woodclubTexture'].texture!)
+        this.player = new Player(this.townMap, this.loader.resources["playerSprite"].texture!, this.loader.resources['woodclubTexture'].texture!)
         this.pixi.stage.addChild(this.player)
 
         //creates npc

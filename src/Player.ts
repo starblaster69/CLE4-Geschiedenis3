@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js'
+import { TownMap } from './TownMap'
 
 export class Player extends PIXI.Sprite {
     //variables
@@ -6,23 +7,24 @@ export class Player extends PIXI.Sprite {
     private yspeed: number
     private direction: number //clockwise, starting at north, 0-3
     private health: number
-    private woodclubTexture : PIXI.Texture 
+    private woodclubTexture: PIXI.Texture
     //inventory: [string]
+    private townMap: TownMap
 
-
-    constructor(texture: PIXI.Texture, woodclubTexture: PIXI.Texture){
+    constructor(townMap: TownMap, texture: PIXI.Texture, woodclubTexture: PIXI.Texture) {
         super(texture)
         console.log("hyaa! i am link!")
         this.xspeed = 0
         this.yspeed = 0
         this.direction = 2
+        this.townMap = townMap
 
         this.health = 10
         //this.inventory.push("sword", "mysCrystal")
 
         this.x = 400
         this.y = 400
-    
+
         this.scale.set(0.2)
         this.anchor.set(0.5)
 
@@ -34,11 +36,28 @@ export class Player extends PIXI.Sprite {
 
     //operations
     public update() {
-        this.x += this.xspeed
-        this.y += this.yspeed
+        // todo only aan de rand van het scherm
+
+        if (this.townMap.x <= 0 && this.townMap.y <= 0) {
+            this.townMap.x -= this.xspeed
+            this.townMap.y -= this.yspeed
+        } else {
+            this.x += this.xspeed
+            this.y += this.yspeed
+        }
+
+        // if (this.player.x <= 0 && this.player.y <= 0) {
+        //     this.x += this.xspeed
+        //     this.y += this.yspeed
+        // } else {
+        //     this.townMap.x -= this.xspeed
+        //     this.townMap.y -= this.yspeed
+        // }
+
+
     }
     private move(e: KeyboardEvent): void {
-        switch (e.key.toUpperCase()){
+        switch (e.key.toUpperCase()) {
             case "A":
             case "ARROWLEFT":
                 this.direction = 3
@@ -60,11 +79,11 @@ export class Player extends PIXI.Sprite {
                 this.yspeed = 3
                 break
             case "K":
-                this.attack()    
+                this.attack()
         }
     }
 
-    private attack(){
+    private attack() {
 
         console.log("ATTACKKKKK")
         this.texture = this.woodclubTexture
@@ -88,16 +107,16 @@ export class Player extends PIXI.Sprite {
         }
     }
 
-    interact(){
+    interact() {
 
     }
-    openInventory(){
+    openInventory() {
 
     }
-    takeDamage(){
+    takeDamage() {
 
     }
-    die(){
+    die() {
 
     }
 }
