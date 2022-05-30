@@ -9,7 +9,7 @@ export class Npc extends PIXI.Sprite {
     private questStatus: number //0 = not started, 1 = started no progress, 9 = completed, 2-8 is progress flags(optional)
     private questReward: string
 
-    constructor(texture: PIXI.Texture){
+    constructor(texture: PIXI.Texture) {
         super(texture)
         console.log("i am an npc!")
         this.direction = 2
@@ -25,15 +25,15 @@ export class Npc extends PIXI.Sprite {
         this.scale.set(0.1)
         this.anchor.set(0.5)
     }
-    private dialogue(){
+    private dialogue() {
         /* switch
             case for each quest flag
                 line of dialogue to display
             default
                 default dialogue  */
-        
+
     }
-    private questUpdate(){
+    private questUpdate() {
         /* switch
             case for each quest flag, check if the goal is achieved
                 increase quest flag counter
