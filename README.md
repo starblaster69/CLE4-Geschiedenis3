@@ -24,5 +24,5 @@
 
 <br><br>
 > <a href="https://tenor.com/view/cat-catgirl-redhead-gif-15394697" target="_blank" >
->     <img src="/images/catGirlWiggle.gif" style="width: 25%;" alt="An anime catgirl dancing" >
-> </a>
+>     <img src="https://c.tenor.com/XAsp8w4Y-NMAAAAC/cat-catgirl.gif" style="width: 25%;" alt="An anime catgirl dancing" >
+> </a> 
