@@ -3,6 +3,7 @@ import townImage from "./images/zeldaWorld.png"
 import playerImage from "./images/grug.png"
 import npcImageHolbewoner from "./images/npcHolbewoner.png"
 import npcImageBunny from "./images/npcBunny.png"
+import knuppelImage from "./images/wooden_club.png"
 import { Game } from './game'
 
 export class Assets extends PIXI.Loader {
@@ -17,6 +18,8 @@ export class Assets extends PIXI.Loader {
         this.add('playerSprite', playerImage)
         this.add('npcHolbewoner', npcImageHolbewoner)
         this.add('npcBunny', npcImageBunny)
+        this.add('woodclubTexture', knuppelImage)
+        this.add("attack", "attack.json")
         this.load(()=>g.loadCompleted())
 
         /*this.npcAssets.forEach(asset => {

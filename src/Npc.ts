@@ -23,15 +23,15 @@ export class Npc extends PIXI.Sprite {
         this.scale.set(scale)
         this.anchor.set(anchor)
     }
-    dialogue(){
+    private dialogue() {
         /* switch
             case for each quest flag
                 line of dialogue to display
             default
                 default dialogue  */
-        
+
     }
-    questUpdate(){
+    private questUpdate() {
         /* switch
             case for each quest flag, check if the goal is achieved
                 increase quest flag counter

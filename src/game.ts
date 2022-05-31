@@ -1,17 +1,19 @@
 import * as PIXI from 'pixi.js'
 import { Assets } from './assets'
-import { Map } from "./Map"
+import { TownMap } from "./TownMap"
 import { Player} from "./Player"
 import { Npc } from "./Npc"
 import { UPDATE_PRIORITY } from 'pixi.js'
 
 
 export class Game{
-    pixi : PIXI.Application //canvas element in de html file
-    assets = new Assets(this)
-    player : Player
-    npcsToLoad : string[] = []
-    npcs: Npc[] = []
+    private pixi : PIXI.Application //canvas element in de html file
+    private assets = new Assets(this)
+    private player : Player
+    private npcsToLoad : string[] = []
+    private npcs: Npc[] = []
+    private npc: Npc
+    public townMap : TownMap
 
     constructor(){
         console.log("ik ben een game")
@@ -19,13 +21,13 @@ export class Game{
         document.body.appendChild(this.pixi.view)
     }
 
-    loadCompleted() {
+    private loadCompleted() {
         //creates background image
-        let townMap = new Map(this.assets.resources["townTexture"].texture!)
-        this.pixi.stage.addChild(townMap)
+        this.townMap = new TownMap(this.assets.resources["townTexture"].texture!)
+        this.pixi.stage.addChild(this.townMap)
 
         //creates player character
-        this.player = new Player(this.assets.resources["playerSprite"].texture!)
+        this.player = new Player(this.townMap, this.assets.resources["playerSprite"].texture!, this.assets.resources['woodclubTexture'].texture!)
         this.pixi.stage.addChild(this.player)
 
         //creates npc
@@ -43,7 +45,7 @@ export class Game{
     }
 
     public update(delta : number){
-        this.player.update(delta)
+        this.player.update()
         
         for(let npc of this.npcs){
             if(this.collision(this.player, npc)){
@@ -53,7 +55,7 @@ export class Game{
         
     }
 
-    collision(sprite1:PIXI.Sprite, sprite2:PIXI.Sprite) {
+    private collision(sprite1:PIXI.Sprite, sprite2:PIXI.Sprite) {
         const bounds1 = sprite1.getBounds()
         const bounds2 = sprite2.getBounds()
 
