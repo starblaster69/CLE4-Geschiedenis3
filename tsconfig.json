@@ -6,6 +6,8 @@
         "strictPropertyInitialization": false,
         "module": "ES6",
         "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
         "moduleResolution": "node",

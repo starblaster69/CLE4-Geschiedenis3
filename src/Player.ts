@@ -30,7 +30,7 @@ export class Player extends PIXI.Sprite {
     }
 
     //operations
-    update() {
+    update(delta : number) {
         this.x += this.xspeed
         this.y += this.yspeed
     }

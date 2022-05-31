@@ -1,54 +1,56 @@
 import * as PIXI from 'pixi.js'
-import townImage from "./images/zeldaWorld.png"
-import playerImage from "./images/grug.png"
-import npcImage from "./images/holbewoner.png"
+import { Assets } from './assets'
 import { Map } from "./Map"
 import { Player} from "./Player"
 import { Npc } from "./Npc"
 import { UPDATE_PRIORITY } from 'pixi.js'
 
-class Game{
+
+export class Game{
     pixi : PIXI.Application //canvas element in de html file
-    loader : PIXI.Loader
+    assets = new Assets(this)
     player : Player
-    npc: Npc
+    npcsToLoad : string[] = []
+    npcs: Npc[] = []
 
     constructor(){
         console.log("ik ben een game")
         this.pixi = new PIXI.Application({ width: 800, height: 800 })
-        console.log(this.pixi)
         document.body.appendChild(this.pixi.view)
-
-        this.loader = new PIXI.Loader()
-        this.loader.add('townTexture', townImage)
-        this.loader.add('playerSprite', playerImage)
-        this.loader.add('npcSprite', npcImage)
-        this.loader.load(()=>this.loadCompleted())
     }
 
     loadCompleted() {
         //creates background image
-        let townMap = new Map(this.loader.resources["townTexture"].texture!)
+        let townMap = new Map(this.assets.resources["townTexture"].texture!)
         this.pixi.stage.addChild(townMap)
 
         //creates player character
-        this.player = new Player(this.loader.resources["playerSprite"].texture!)
+        this.player = new Player(this.assets.resources["playerSprite"].texture!)
         this.pixi.stage.addChild(this.player)
 
         //creates npc
-        this.npc = new Npc(this.loader.resources["npcSprite"].texture!)
-        this.pixi.stage.addChild(this.npc)
-
+        this.npcsToLoad.push("Holbewoner", "Bunny")
+        for(let npcName of this.npcsToLoad){
+            let npcData = this.assets.npcJson.find(item => item.name === npcName)
+            console.log(npcData)
+            let npc = new Npc(this.assets.resources[`npc${npcName}`].texture!, npcData.name, npcData.questName, npcData.url, npcData.direction, npcData.x, npcData.y, npcData.scale, npcData.anchor)
+            this.pixi.stage.addChild(npc)
+            this.npcs.push(npc)
+        }
+        
         //updater
         this.pixi.ticker.add((delta) => this.update(delta))
     }
 
     public update(delta : number){
-        this.player.update()
-    
-        if(this.collision(this.player, this.npc)){
+        this.player.update(delta)
+        
+        for(let npc of this.npcs){
+            if(this.collision(this.player, npc)){
             console.log("player touches enemy 💀")
+            }
         }
+        
     }
 
     collision(sprite1:PIXI.Sprite, sprite2:PIXI.Sprite) {
