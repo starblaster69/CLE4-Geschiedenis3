@@ -21,7 +21,7 @@ export class Game{
         document.body.appendChild(this.pixi.view)
     }
 
-    private loadCompleted() {
+    public loadCompleted() {
         //creates background image
         this.townMap = new TownMap(this.assets.resources["townTexture"].texture!)
         this.pixi.stage.addChild(this.townMap)
