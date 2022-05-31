@@ -5,6 +5,12 @@ import { Player} from "./Player"
 import { Npc } from "./Npc"
 import { UPDATE_PRIORITY } from 'pixi.js'
 
+/* 
+** alle afbeelding worden nu geladen in assets.ts. assets.ts is extended als pixi.loader.
+** als je een nieuwe npc sprite toe wilt voegen, maak een entry aan in static/npcs.json, 
+** en import & load het in assets.ts
+** zorg dat 
+*/
 
 export class Game{
     private pixi : PIXI.Application //canvas element in de html file
@@ -31,11 +37,11 @@ export class Game{
         this.pixi.stage.addChild(this.player)
 
         //creates npc
-        this.npcsToLoad.push("Holbewoner", "Bunny")
+        this.npcsToLoad.push("Holbewoner", "Bunny") //maak de string identiek aan de sprite filename zonder .png
         for(let npcName of this.npcsToLoad){
             let npcData = this.assets.npcJson.find(item => item.name === npcName)
             console.log(npcData)
-            let npc = new Npc(this.assets.resources[`npc${npcName}`].texture!, npcData.name, npcData.questName, npcData.url, npcData.direction, npcData.x, npcData.y, npcData.scale, npcData.anchor)
+            let npc = new Npc(this.assets.resources[npcName].texture!, npcData.name, npcData.questName, npcData.url, npcData.direction, npcData.x, npcData.y, npcData.scale, npcData.anchor)
             this.pixi.stage.addChild(npc)
             this.npcs.push(npc)
         }

@@ -1,17 +1,17 @@
 import * as PIXI from 'pixi.js'
-//import npcsJson from "./npcs.json"
 
 export class Npc extends PIXI.Sprite {
     //variables
-    direction: number //clockwise, starting at north, 0-3
     name: string
     questName: string
     url: string
+    direction: number //clockwise, starting at north, 0-3
 
     constructor(texture: PIXI.Texture, name: string, questName: string, url: string, direction: number, x: number, y: number, scale: number, anchor: number){
         super(texture)
-        console.log("i am an npc!")
+        //console.log("i am an npc!")
 
+        //data is filled in from the static/npcs.json file. alter/add it there
         this.name = name
         this.questName = questName
         this.url = url
