@@ -1,0 +1,23 @@
+[
+    {
+        "name" : "Holbewoner", 
+        "questName" : "bunnyMurder",
+        "url" : "./images/npcHolbewoner.png",
+        "direction": 2, 
+        "x" : 240,
+        "y" : 230,
+        "scale": 0.1,
+        "anchor": 0.5
+    },
+     {
+        "name" : "Bunny", 
+        "questName" : "", 
+        "url" : "./images/npcPlaceholder.png",
+        "direction": 1,
+        "x" : 600,
+        "y" : 475,
+        "scale": 0.1,
+        "anchor": 0.5
+    }    
+]
+
