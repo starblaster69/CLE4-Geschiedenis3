@@ -14,6 +14,7 @@ export class TownMap extends PIXI.Sprite {
         this.tree.width = 50
         this.tree.height = 50
 
+
         this.addChild(this.tree)
     }
 }
