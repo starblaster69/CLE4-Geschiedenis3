@@ -45,8 +45,6 @@ export class Player extends PIXI.Sprite {
     //operations
     public update(delta: number) {
 
-        // todo only aan de rand van het scherm
-
         let mapwidth = 3010
         let mapheight = 1984
         let centerx = 350
@@ -62,15 +60,6 @@ export class Player extends PIXI.Sprite {
 
 
         console.log("X:", this.x, "Y:", this.y)
-    
-
-        // if (this.townMap.x <= 0 && this.townMap.y <= 0) {
-        //     this.townMap.x -= this.xspeed
-        //     this.townMap.y -= this.yspeed
-        // } else {
-        //     this.x += this.xspeed
-        //     this.y += this.yspeed
-        // }
     }
 
     clamp(num: number, min: number, max: number) {
