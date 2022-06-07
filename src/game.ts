@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js'
-import townImage from "./images/zeldaWorld.png"
-import playerImage from "./images/grug.png"
-import npcImage from "./images/holbewoner.png"
-import knuppelImage from "./images/wooden_club.png"
+import townImage from "./images/Map & Terrain/ZeldaWorld.png"
+import playerImage from "./images/PlayerCharacters/Player.png"
+import npcImage from "./images/NonPlayerCharacters/holbewoner.png"
+import knuppelImage from "./images/PlayerCharacters/playerWeapons/WoodenClub.png"
 import { TownMap } from "./TownMap"
 import { Player} from "./Player"
 import { Npc } from "./Npc"
