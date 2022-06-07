@@ -6,8 +6,8 @@ export class TownMap extends PIXI.Sprite {
 
     constructor(texture: PIXI.Texture){
         super(texture)
-        this.width = 2048
-        this.height = 2041
+        this.width = 3048
+        this.height = 2041 //4041
 
 
         this.tree = new PIXI.Sprite(PIXI.Texture.WHITE)

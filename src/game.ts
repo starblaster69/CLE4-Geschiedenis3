@@ -8,8 +8,8 @@ import { Player} from "./Player"
 import { Npc } from "./Npc"
 import { UPDATE_PRIORITY } from 'pixi.js'
 
-class Game{
-    private pixi : PIXI.Application //canvas element in de html file
+export class Game{
+    public pixi : PIXI.Application //canvas element in de html file
     private loader : PIXI.Loader
     private player : Player
     private npc: Npc
@@ -17,7 +17,7 @@ class Game{
 
     constructor(){
         console.log("ik ben een game")
-        this.pixi = new PIXI.Application({ width: 800, height: 800 })
+        this.pixi = new PIXI.Application({ width: 700, height: 500})
         console.log(this.pixi)
         document.body.appendChild(this.pixi.view)
 
@@ -27,7 +27,10 @@ class Game{
         this.loader.add('npcSprite', npcImage)
         this.loader.add('woodclubTexture', knuppelImage)
         this.loader.add("attack", "attack.json")
+
         this.loader.load(()=>this.loadCompleted())
+
+
     }
 
     private loadCompleted() {
@@ -36,7 +39,7 @@ class Game{
         this.pixi.stage.addChild(this.townMap)
 
         //creates player character
-        this.player = new Player(this.townMap, this.loader.resources["playerSprite"].texture!, this.loader.resources['woodclubTexture'].texture!)
+        this.player = new Player(this, this.townMap, this.loader.resources["playerSprite"].texture!, this.loader.resources['woodclubTexture'].texture!)
         this.pixi.stage.addChild(this.player)
 
         //creates npc
@@ -45,10 +48,15 @@ class Game{
 
         //updater
         this.pixi.ticker.add((delta) => this.update(delta))
+
+        this.pixi.stage.x = this.pixi.screen.width / 2;
+        this.pixi.stage.y = this.pixi.screen.height / 2;
+
+        this.pixi.ticker.add((delta) => this.update(delta));
     }
 
-    public update(delta : number){
-        this.player.update()
+    public update(delta: number){
+        this.player.update(delta)
     
         if(this.collision(this.player, this.npc)){
             console.log("player touches enemy 💀")
