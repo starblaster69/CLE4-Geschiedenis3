@@ -17,7 +17,7 @@ export class Game{
 
     constructor(){
         console.log("ik ben een game")
-        this.pixi = new PIXI.Application({ width: 700, height: 500})
+        this.pixi = new PIXI.Application({ width: 1440, height: 1129})
         console.log(this.pixi)
         document.body.appendChild(this.pixi.view)
 
@@ -29,8 +29,6 @@ export class Game{
         this.loader.add("attack", "attack.json")
 
         this.loader.load(()=>this.loadCompleted())
-
-
     }
 
     private loadCompleted() {
