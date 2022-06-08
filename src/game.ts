@@ -1,8 +1,4 @@
 import * as PIXI from 'pixi.js'
-import townImage from "./images/Map & Terrain/ZeldaWorld.png"
-import playerImage from "./images/PlayerCharacters/Player.png"
-import npcImage from "./images/NonPlayerCharacters/holbewoner.png"
-import knuppelImage from "./images/PlayerCharacters/playerWeapons/WoodenClub.png"
 import { Assets } from './assets'
 import { TownMap } from "./TownMap"
 import { Player} from "./Player"
@@ -18,7 +14,7 @@ import { QuestTracker } from './QuestTracker'
 */
 
 export class Game{
-    private pixi : PIXI.Application //canvas element in de html file
+    public pixi : PIXI.Application //canvas element in de html file
     public assets = new Assets(this)
     public questTracker : QuestTracker
     private player : Player
@@ -50,7 +46,7 @@ export class Game{
         for(let npcName of this.npcsToLoad){
             let npcData = this.assets.npcJson.find(item => item.name === npcName)
             console.log(npcData)
-            let npc = new Npc(this.assets.resources[`npc${npcName}`].texture!, npcData.name, npcData.questName, npcData.url, npcData.direction, npcData.x, npcData.y, npcData.scale, npcData.anchor)
+            let npc = new Npc(this.assets.resources[npcName].texture!, npcData.name, npcData.questName, npcData.url, npcData.direction, npcData.x, npcData.y, npcData.scale, npcData.anchor)
             this.pixi.stage.addChild(npc)
             this.npcs.push(npc)
         }
