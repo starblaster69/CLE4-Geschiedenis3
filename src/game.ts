@@ -1,4 +1,8 @@
 import * as PIXI from 'pixi.js'
+import townImage from "./images/Map & Terrain/ZeldaWorld.png"
+import playerImage from "./images/PlayerCharacters/Player.png"
+import npcImage from "./images/NonPlayerCharacters/holbewoner.png"
+import knuppelImage from "./images/PlayerCharacters/playerWeapons/WoodenClub.png"
 import { Assets } from './assets'
 import { TownMap } from "./TownMap"
 import { Player} from "./Player"
@@ -7,7 +11,7 @@ import { UPDATE_PRIORITY } from 'pixi.js'
 import { QuestTracker } from './QuestTracker'
 
 /* 
-** alle afbeelding worden nu geladen in assets.ts. assets.ts is extended als pixi.loader.
+** alle afbeelding worden nu geladen in assets.ts. assets.ts is extended als pixi.assets.
 ** als je een nieuwe npc sprite toe wilt voegen, maak een entry aan in static/npcs.json, 
 ** en import & load het in assets.ts
 ** zorg dat de npcsToLoad waardes identiek zijn aan de filename excl. .png
@@ -22,21 +26,10 @@ export class Game{
     private npcs: Npc[] = []
     public townMap : TownMap
 
-    // public quests = [{ //TEMPORARY
-    //     "questName" : "bunnyMurder",
-    //     "questStatus" : 0,
-    //     "questReward" : "magicSword",
-    //     "stages" : [
-    //         "not started",
-    //         "objective 1",
-    //         "objective 2",
-    //         "completed"
-    //     ]
-    // }]
-
     constructor(){
         console.log("ik ben een game")
-        this.pixi = new PIXI.Application({ width: 800, height: 800 })
+        this.pixi = new PIXI.Application({ width: 700, height: 500})
+        console.log(this.pixi)
         document.body.appendChild(this.pixi.view)
     }
 
@@ -49,26 +42,31 @@ export class Game{
         this.pixi.stage.addChild(this.townMap)
 
         //creates player character
-        this.player = new Player(this.townMap, this.assets.resources["playerSprite"].texture!, this.assets.resources['woodclubTexture'].texture!)
+        this.player = new Player(this, this.townMap, this.assets.resources["playerSprite"].texture!, this.assets.resources['woodclubTexture'].texture!)
         this.pixi.stage.addChild(this.player)
 
         //creates npc
-        this.npcsToLoad.push("Holbewoner", "Bunny") //maak de string identiek aan de sprite filename zonder .png
+        this.npcsToLoad.push("Holbewoner", "Bunny")
         for(let npcName of this.npcsToLoad){
             let npcData = this.assets.npcJson.find(item => item.name === npcName)
             console.log(npcData)
-            let npc = new Npc(this.assets.resources[npcName].texture!, npcData.name, npcData.questName, npcData.url, npcData.direction, npcData.x, npcData.y, npcData.scale, npcData.anchor)
+            let npc = new Npc(this.assets.resources[`npc${npcName}`].texture!, npcData.name, npcData.questName, npcData.url, npcData.direction, npcData.x, npcData.y, npcData.scale, npcData.anchor)
             this.pixi.stage.addChild(npc)
             this.npcs.push(npc)
         }
-        
+
         //updater
         this.pixi.ticker.add((delta) => this.update(delta))
+
+        this.pixi.stage.x = this.pixi.screen.width / 2;
+        this.pixi.stage.y = this.pixi.screen.height / 2;
+
+        this.pixi.ticker.add((delta) => this.update(delta));
     }
 
-    public update(delta : number){
-        this.player.update()
-        
+    public update(delta: number){
+        this.player.update(delta)
+    
         for(let npc of this.npcs){
             if(this.collision(this.player, npc)){
             console.log("player touches enemy 💀")

@@ -10,26 +10,24 @@ type AssetFile = { name: string, url: string }
 
 export class Assets extends PIXI.Loader {
     public npcJson: any[] = []
-    public questsJson: any[] = []
     private toLoad: AssetFile[] = []
+
+    public questsJson = [{ //TEMPORARY
+        "questName" : "bunnyMurder",
+        "questStatus" : 0,
+        "questReward" : "magicSword",
+        "stages" : [
+            "not started",
+            "objective 1",
+            "objective 2",
+            "completed"
+        ]
+    }]
 
     constructor(g: Game) {
         super()
 
-        this.questsJson = [{ //TEMPORARY
-            "questName" : "bunnyMurder",
-            "questStatus" : 0,
-            "questReward" : "magicSword",
-            "stages" : [
-                "not started",
-                "objective 1",
-                "objective 2",
-                "completed"
-            ]
-        }]
-
         this.fetchRequest("npc")
-        //this.fetchRequest("quest")
 
         //all the images and other files to be added to the loader, can be freely added to
         this.toLoad = [
@@ -58,22 +56,7 @@ export class Assets extends PIXI.Loader {
         console.log(`Loading ${loader.progress}%`)
     }
 
-    //fetches JSON from selected file. currently npcs only, ask Roxy of you want to fetch other files as well
     private fetchRequest(type: string) {
-        // let fetchAdress : string
-        // let fetchHeader : any
-
-        // switch (type) {
-        //     case "npc":
-        //         fetchAdress = `../npcs.json`
-        //         fetchHeader = this.npcFetchHeader
-        //         break
-        //     case "quest":
-        //         fetchAdress = `../quests.json`
-        //         fetchHeader = this.questFetchHeader
-        //         break    
-        // }
-
         fetch(`../npcs.json`)
             .then((response) => {
                 if (!response.ok) {
@@ -89,14 +72,14 @@ export class Assets extends PIXI.Loader {
     private AJAXErrorHandler(data: string) {
         console.error("AJAX load error: " + data)
     }
-
-    //npc fetch success handler, pushes all the npc data into the npcJson array for easy access
     private npcFetchHeader(data: any) {
+        //console.log(data.length)
+        //console.log(data)
         for (let i = 0; i < data.length; i++) {
+            //console.log(data)
             this.npcJson.push(data[i])
+            console.log(this.npcJson[i])
         }
-    }
-    private questFetchHeader(data: any) {
-        console.log(data)
+        console.log(this.npcJson)
     }
 }

@@ -1,23 +1,31 @@
 import * as PIXI from 'pixi.js'
 import { TownMap } from './TownMap'
+import { Game } from './game'
 
 export class Player extends PIXI.Sprite {
     //variables
-    private xspeed: number
-    private yspeed: number
-    private direction: number //clockwise, starting at north, 0-3
-    private health: number
-    private woodclubTexture: PIXI.Texture
-    //inventory: [string]
-    private townMap: TownMap
+    private xspeed: number;
+    private yspeed: number;
+    private direction: number; //clockwise, starting at north, 0-3
+    private health: number;
+    private woodclubTexture: PIXI.Texture;
+    private townMap: TownMap;
+    private game: Game;
+     //inventory: [string]
 
-    constructor(townMap: TownMap, texture: PIXI.Texture, woodclubTexture: PIXI.Texture) {
+    constructor(game: Game, townMap: TownMap, texture: PIXI.Texture, woodclubTexture: PIXI.Texture) {
         super(texture)
-        console.log("hyaa! i am link!")
-        this.xspeed = 0
-        this.yspeed = 0
-        this.direction = 2
-        this.townMap = townMap
+        
+        console.log("hyaa! i am link!");
+        this.xspeed = 0;
+        this.yspeed = 0;
+        this.direction = 2;
+        this.townMap = townMap;
+
+        this.game = game;
+        this.anchor.set(0.5);
+        this.x = game.pixi.screen.width / 2;
+        this.y = game.pixi.screen.height / 2;
 
         this.health = 10
         //this.inventory.push("sword", "mysCrystal")
@@ -35,31 +43,30 @@ export class Player extends PIXI.Sprite {
     }
 
     //operations
-    public update() {
-        // todo only aan de rand van het scherm
-       
+    public update(delta: number) {
 
-        console.log(this.x + this.y)
-    
+        let mapwidth = 3010
+        let mapheight = 1984
+        let centerx = 350
+        let centery = 250
 
-        if (this.townMap.x <= 0 && this.townMap.y <= 0) {
-            this.townMap.x -= this.xspeed
-            this.townMap.y -= this.yspeed
-        } else {
-            this.x += this.xspeed
-            this.y += this.yspeed
-        }
+        // beweeg het karakter over de map maar niet buiten beeld
+        this.x = this.clamp(this.x + this.xspeed, 36, mapwidth)
+        this.y = this.clamp(this.y + this.yspeed, 48, mapheight)
 
-        // if (this.x <= 0 && this.y <= 0) {
-        //     this.x += this.xspeed
-        //     this.y += this.yspeed
-        // } else {
-        //     this.townMap.x -= this.xspeed
-        //     this.townMap.y -= this.yspeed
-        // }
+        let mapx = this.clamp(this.x, centerx, mapwidth - centerx)
+        let mapy = this.clamp(this.y, centery, mapheight - centery)
+        this.game.pixi.stage.pivot.set(mapx, mapy)    
 
 
+        console.log("X:", this.x, "Y:", this.y)
     }
+
+    clamp(num: number, min: number, max: number) {
+        return Math.min(Math.max(num, min), max)
+    }
+
+
     private move(e: KeyboardEvent): void {
         switch (e.key.toUpperCase()) {
             case "A":
