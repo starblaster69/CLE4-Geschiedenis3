@@ -12,6 +12,18 @@ export class Assets extends PIXI.Loader {
     public npcJson: any[] = []
     private toLoad: AssetFile[] = []
 
+    public questsJson = [{ //TEMPORARY
+        "questName" : "bunnyMurder",
+        "questStatus" : 0,
+        "questReward" : "magicSword",
+        "stages" : [
+            "not started",
+            "objective 1",
+            "objective 2",
+            "completed"
+        ]
+    }]
+
     constructor(g: Game) {
         super()
 
@@ -24,7 +36,7 @@ export class Assets extends PIXI.Loader {
             { name: 'Holbewoner', url: npcImageHolbewoner },
             { name: 'Bunny', url: npcImageBunny },
             { name: 'woodclubTexture', url: knuppelImage },
-            { name: 'attack', url: 'attack.json' } //attack.json does not exist. gives an error
+            //{ name: 'attack', url: 'attack.json' } //attack.json does not exist. gives an error
         ]
 
         //adds all above assets
@@ -44,7 +56,6 @@ export class Assets extends PIXI.Loader {
         console.log(`Loading ${loader.progress}%`)
     }
 
-    //fetches JSON from selected file. currently npcs only, ask Roxy of you want to fetch other files as well
     private fetchRequest(type: string) {
         fetch(`../npcs.json`)
             .then((response) => {
@@ -61,16 +72,14 @@ export class Assets extends PIXI.Loader {
     private AJAXErrorHandler(data: string) {
         console.error("AJAX load error: " + data)
     }
-
-    //npc fetch success handler, pushes all the npc data into the npcJson array for easy access
     private npcFetchHeader(data: any) {
         //console.log(data.length)
         //console.log(data)
         for (let i = 0; i < data.length; i++) {
             //console.log(data)
             this.npcJson.push(data[i])
-            //console.log(this.npcJson[i])
+            console.log(this.npcJson[i])
         }
-        //console.log(this.npcJson)
+        console.log(this.npcJson)
     }
 }

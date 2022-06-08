@@ -2,10 +2,10 @@ import * as PIXI from 'pixi.js'
 
 export class Npc extends PIXI.Sprite {
     //variables
-    name: string
-    questName: string
-    url: string
-    direction: number //clockwise, starting at north, 0-3
+    public name: string
+    public questName: string
+    private url: string
+    private direction: number //clockwise, starting at north, 0-3
 
     constructor(texture: PIXI.Texture, name: string, questName: string, url: string, direction: number, x: number, y: number, scale: number, anchor: number){
         super(texture)
