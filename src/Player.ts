@@ -45,14 +45,14 @@ export class Player extends PIXI.Sprite {
     //operations
     public update(delta: number) {
 
-        let mapwidth = 3010
-        let mapheight = 1984
-        let centerx = 350
-        let centery = 250
+        let mapwidth = 3050 //De breedte van het Map
+        let mapheight = 2350 //De lengte van de Map
+        let centerx = 720 // midden van de viewport X
+        let centery = 564.5 // midden van de viewport Y
 
-        // beweeg het karakter over de map maar niet buiten beeld
-        this.x = this.clamp(this.x + this.xspeed, 36, mapwidth)
-        this.y = this.clamp(this.y + this.yspeed, 48, mapheight)
+        // Speler mag niet buiten beeld lopen
+        this.x = this.clamp(this.x + this.xspeed, 36, 3010)
+        this.y = this.clamp(this.y + this.yspeed, 48, 1984)
 
         let mapx = this.clamp(this.x, centerx, mapwidth - centerx)
         let mapy = this.clamp(this.y, centery, mapheight - centery)
