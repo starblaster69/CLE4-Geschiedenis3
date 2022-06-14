@@ -10,26 +10,14 @@ type AssetFile = { name: string, url: string }
 
 export class Assets extends PIXI.Loader {
     public npcJson: any[] = []
+    public questsJson: any[] = []
     private toLoad: AssetFile[] = []
-
-    public questsJson = [//TEMPORARY
-        { 
-            "questName" : "bunnyMurder",
-            "questStatus" : 0,
-            "questReward" : "magicSword",
-            "stages" : [
-                "not started",
-                "objective 1",
-                "objective 2",
-                "completed"
-            ]
-        }
-    ]
 
     constructor(g: Game) {
         super()
 
-        this.fetchRequest("npc")
+        this.fetchRequest("npcs")
+        this.fetchRequest("quests")
 
         //all the images and other files to be added to the loader, can be freely added to
         this.toLoad = [
@@ -60,14 +48,20 @@ export class Assets extends PIXI.Loader {
     }
 
     private fetchRequest(type: string) {
-        fetch(`../npcs.json`)
+        fetch(`../${type}.json`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(response.statusText);
                 }
                 return response.json();
             })
-            .then((data: any) => this.npcFetchHeader(data))
+            .then((data: any) => { 
+                if (type === "npcs") {
+                    this.npcFetchHeader(data)
+                } else if (type === "quests") {
+                    this.questFetchHeader(data)
+                }
+            }) 
             .catch((err: string) => this.AJAXErrorHandler(err));
     }
 
@@ -83,8 +77,17 @@ export class Assets extends PIXI.Loader {
         for (let i = 0; i < data.length; i++) {
             // console.log(data)
             this.npcJson.push(data[i])
-            //console.log(this.npcJson[i])
+            // console.log(this.npcJson[i])
         }
         // console.log(this.npcJson)
+    }
+
+    // Quests Json fetch success handler, loads everything into a global array.
+    private questFetchHeader(data: any){
+        for (let i = 0; i < data.length; i++) {
+            // console.log(data)
+            this.questsJson.push(data[i])
+            // console.log(this.questsJson[i])
+        }
     }
 }
