@@ -19,13 +19,13 @@ export class Game{
     public questTracker : QuestTracker
     private player : Player
     private npcsToLoad : string[] = []
-    private npcs: Npc[] = []
+    public npcs: Npc[] = []
     public townMap : TownMap
 
     constructor(){
         console.log("ik ben een game")
         this.pixi = new PIXI.Application({ width: 700, height: 500})
-        console.log(this.pixi)
+        // console.log(this.pixi)
         document.body.appendChild(this.pixi.view)
     }
 
@@ -45,8 +45,9 @@ export class Game{
         this.npcsToLoad.push("Holbewoner", "Bunny")
         for(let npcName of this.npcsToLoad){
             let npcData = this.assets.npcJson.find(item => item.name === npcName)
-            console.log(npcData)
-            let npc = new Npc(this.assets.resources[npcName].texture!, npcData.name, npcData.questName, npcData.url, npcData.direction, npcData.x, npcData.y, npcData.scale, npcData.anchor)
+            // console.log(npcData)
+            let npc = new Npc(this.assets.resources[npcName].texture!, npcData.name, npcData.questName, npcData.dialogue, npcData.direction, npcData.x, npcData.y, npcData.scale, npcData.anchor, this)
+            // console.log(npc)
             this.pixi.stage.addChild(npc)
             this.npcs.push(npc)
         }
@@ -65,8 +66,11 @@ export class Game{
     
         for(let npc of this.npcs){
             if(this.collision(this.player, npc)){
-            console.log("player touches enemy 💀")
-            this.questTracker.checkStatus(npc.questName)
+                npc.setInRange(true)
+                console.log(npc.getInRange())
+                //console.log("player touches enemy 💀")
+            } else { 
+                npc.setInRange(false)
             }
         }
         

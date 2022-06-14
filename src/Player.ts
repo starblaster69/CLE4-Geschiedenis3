@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js'
 import { TownMap } from './TownMap'
 import { Game } from './game'
+import { Npc } from "./Npc"
 
 export class Player extends PIXI.Sprite {
     //variables
@@ -11,7 +12,6 @@ export class Player extends PIXI.Sprite {
     private woodclubTexture: PIXI.Texture;
     private townMap: TownMap;
     private game: Game;
-     //inventory: [string]
 
     constructor(game: Game, townMap: TownMap, texture: PIXI.Texture, woodclubTexture: PIXI.Texture) {
         super(texture)
@@ -59,14 +59,14 @@ export class Player extends PIXI.Sprite {
         this.game.pixi.stage.pivot.set(mapx, mapy)    
 
 
-        console.log("X:", this.x, "Y:", this.y)
+        // console.log("X:", this.x, "Y:", this.y)
     }
-
-    clamp(num: number, min: number, max: number) {
+    // ??? does some math idk ask Bilal
+    private clamp(num: number, min: number, max: number) {
         return Math.min(Math.max(num, min), max)
     }
 
-
+// on button press, sets appropriate speed, or calls function for interactivity
     private move(e: KeyboardEvent): void {
         switch (e.key.toUpperCase()) {
             case "A":
@@ -91,16 +91,14 @@ export class Player extends PIXI.Sprite {
                 break
             case "K":
                 this.attack()
+                break
+            case "E":
+                this.interact()
+                break
         }
     }
 
-    private attack() {
-
-        console.log("ATTACKKKKK")
-        this.texture = this.woodclubTexture
-
-    }
-
+    // on button release, resets appropriate speeds
     private unMove(e: KeyboardEvent): void {
         switch (e.key.toUpperCase()) {
             case "A":
@@ -118,16 +116,28 @@ export class Player extends PIXI.Sprite {
         }
     }
 
-    interact() {
+    // attacks, changes character sprite to woodenclub. not right.
+    private attack() {
+        console.log("ATTACKKKKK")
+        this.texture = this.woodclubTexture
+    }
+
+    // interacts with the first npc in the array that has this.inRange == true,
+    // then calls said npc's dialogue function.
+    private interact() {
+        let npcInRange = this.game.npcs.find((npc: Npc) => npc.getInRange() === true)
+        if(npcInRange != undefined){
+            npcInRange.dialogue()
+        }
+    }
+
+    private openInventory() {
 
     }
-    openInventory() {
+    private takeDamage() {
 
     }
-    takeDamage() {
-
-    }
-    die() {
+    private die() {
 
     }
 }

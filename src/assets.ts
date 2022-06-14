@@ -12,17 +12,19 @@ export class Assets extends PIXI.Loader {
     public npcJson: any[] = []
     private toLoad: AssetFile[] = []
 
-    public questsJson = [{ //TEMPORARY
-        "questName" : "bunnyMurder",
-        "questStatus" : 0,
-        "questReward" : "magicSword",
-        "stages" : [
-            "not started",
-            "objective 1",
-            "objective 2",
-            "completed"
-        ]
-    }]
+    public questsJson = [//TEMPORARY
+        { 
+            "questName" : "bunnyMurder",
+            "questStatus" : 0,
+            "questReward" : "magicSword",
+            "stages" : [
+                "not started",
+                "objective 1",
+                "objective 2",
+                "completed"
+            ]
+        }
+    ]
 
     constructor(g: Game) {
         super()
@@ -52,6 +54,7 @@ export class Assets extends PIXI.Loader {
         this.load(() => g.loadCompleted())
     }
 
+    //shows loading progress and any errors in the console
     private showProgress(loader: PIXI.Loader) {
         console.log(`Loading ${loader.progress}%`)
     }
@@ -72,14 +75,16 @@ export class Assets extends PIXI.Loader {
     private AJAXErrorHandler(data: string) {
         console.error("AJAX load error: " + data)
     }
+
+    // NPC Json fetch success handler, loads everything into a global array.
     private npcFetchHeader(data: any) {
         //console.log(data.length)
         //console.log(data)
         for (let i = 0; i < data.length; i++) {
-            //console.log(data)
+            // console.log(data)
             this.npcJson.push(data[i])
-            console.log(this.npcJson[i])
+            //console.log(this.npcJson[i])
         }
-        console.log(this.npcJson)
+        // console.log(this.npcJson)
     }
 }
