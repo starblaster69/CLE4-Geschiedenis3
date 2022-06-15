@@ -24,7 +24,7 @@ export class Game{
 
     constructor(){
         console.log("ik ben een game")
-        this.pixi = new PIXI.Application({ width: 700, height: 500})
+        this.pixi = new PIXI.Application({ width: 1440, height: 1129})
         // console.log(this.pixi)
         this.pixi.stage.x = this.pixi.screen.width / 2;
         this.pixi.stage.y = this.pixi.screen.height / 2;

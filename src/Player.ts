@@ -62,7 +62,7 @@ export class Player extends PIXI.Sprite {
         // console.log("X:", this.x, "Y:", this.y)
     }
     // ??? does some math idk ask Bilal
-    private clamp(num: number, min: number, max: number) {
+    public clamp(num: number, min: number, max: number) {
         return Math.min(Math.max(num, min), max)
     }
 
