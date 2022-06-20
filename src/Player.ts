@@ -73,11 +73,13 @@ export class Player extends PIXI.Sprite {
             case "ARROWLEFT":
                 this.direction = 3
                 this.xspeed = -3
+                this.scale.set(-0.2, 0.2)
                 break
             case "D":
             case "ARROWRIGHT":
                 this.direction = 1
-                this.xspeed = 3                
+                this.xspeed = 3    
+                this.scale.set(0.2, 0.2)            
                 break
             case "W":
             case "ARROWUP":
