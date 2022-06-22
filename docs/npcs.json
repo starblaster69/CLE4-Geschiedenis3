@@ -1,0 +1,39 @@
+[
+    {
+        "name" : "Holbewoner", 
+        "questName" : "bunnyMurder",
+        "url" : "./images/npcHolbewoner.png",
+        "dialogue" : [
+            "line 1",
+            "line 2",
+            "line 3",
+            "line 4",
+            "line 5",
+            "line 6"
+        ],
+        "direction": 2, 
+        "x" : 240,
+        "y" : 230,
+        "scale": 0.1,
+        "anchor": 0.5
+    },
+     {
+        "name" : "Bunny", 
+        "questName" : "", 
+        "url" : "./images/npcPlaceholder.png",
+        "dialogue" : [
+            "line 1",
+            "line 2",
+            "line 3",
+            "line 4",
+            "line 5",
+            "line 6"
+        ],
+        "direction": 1,
+        "x" : 600,
+        "y" : 475,
+        "scale": 0.1,
+        "anchor": 0.5
+    }    
+]
+

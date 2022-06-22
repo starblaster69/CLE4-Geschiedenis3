@@ -1,0 +1,13 @@
+[
+    {
+        "questName" : "bunnyMurder",
+        "questStatus" : 0,
+        "questReward" : "magicSword",
+        "stages" : [
+            "not started",
+            "objective 1",
+            "objective 2",
+            "completed"
+        ]
+    }
+]
