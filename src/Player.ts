@@ -10,6 +10,7 @@ export class Player extends PIXI.Sprite {
     private direction: number; //clockwise, starting at north, 0-3
     private health: number;
     private woodclubTexture: PIXI.Texture;
+    private tempTexture: PIXI.Texture;
     private townMap: TownMap;
     private game: Game;
 
@@ -121,7 +122,9 @@ export class Player extends PIXI.Sprite {
     // attacks, changes character sprite to woodenclub. not right.
     private attack() {
         console.log("ATTACKKKKK")
+        this.tempTexture = this.texture
         this.texture = this.woodclubTexture
+        this.woodclubTexture = this.tempTexture
     }
 
     // interacts with the first npc in the array that has this.inRange == true,
