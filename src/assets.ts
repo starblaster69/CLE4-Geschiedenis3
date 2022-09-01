@@ -82,6 +82,7 @@ export class Assets extends PIXI.Loader {
         // console.log(this.npcJson)
     }
 
+
     // Quests Json fetch success handler, loads everything into a global array.
     private questFetchHeader(data: any){
         for (let i = 0; i < data.length; i++) {

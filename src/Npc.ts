@@ -34,11 +34,14 @@ export class Npc extends PIXI.Sprite {
         this.inRange = inRange
     }
 
+    
     // retrieves this.inRange. used by player when attempting to interact
     public getInRange(){
         return this.inRange
     }
 
+
+    
     // retrieves appropriate line of dialogue based on quest progression, then calls questTracker so it can progress the quest.
     public dialogue() {
         let status = this.game.questTracker.getQuestStatus(this.questName)
