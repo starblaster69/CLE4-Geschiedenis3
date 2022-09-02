@@ -66,6 +66,7 @@ export class Game{
             if(this.collision(this.player, npc)){
                 npc.setInRange(true)
                 console.log(npc.getInRange())
+                window.location.href="minigame.html";
                 //console.log("player touches enemy 💀")
             } else { 
                 npc.setInRange(false)
